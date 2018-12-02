@@ -16,7 +16,6 @@ package processor
 
 import (
 	"time"
-	"fmt"
 )
 
 func CreateDefaultBatchContext() *BatchContext {
@@ -58,7 +57,7 @@ func StartTimeBasedProcessing(processor Processor, waitIntervalSec time.Duration
 					return processor.Process()
 				})
 				if err != nil {
-					fmt.Println(err)
+					processor.HandleError(err)
 				} else {
 					actualTime := time.Now()
 					*batchContext.LastChanged = actualTime

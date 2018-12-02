@@ -42,6 +42,10 @@ func (s ExampleDataProcessor) GetBatchContext() *processor.BatchContext {
 	return s.BatchContext
 }
 
+func (s ExampleDataProcessor) HandleError(err error) {
+	fmt.Println(err)
+}
+
 func main() {
 	proc := ExampleDataProcessor{}
 	b := processor.CreateDefaultBatchContext()

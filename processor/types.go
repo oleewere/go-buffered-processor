@@ -21,6 +21,7 @@ import (
 type Processor interface {
 	GetBatchContext() *BatchContext
 	Process() error
+	HandleError(error)
 }
 
 type BatchContext struct {
