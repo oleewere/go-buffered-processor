@@ -103,6 +103,7 @@ function release_and_push_new_branch() {
   git branch -D $new_branch
   git branch $new_branch $next_release
   git push origin master
+  git push origin $next_release
   git push origin $new_branch
 }
 
@@ -112,6 +113,7 @@ function release_and_push_actual_branch() {
   local version_number=$(get_version_number $next_release)
   git tag "$next_release" -m "$next_release (patch release)"
   git push origin $actual_branch
+  git push origin $next_release
 }
 
 function release_major() {
