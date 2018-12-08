@@ -40,7 +40,7 @@ func (p ExampleDataProcessor) Process(batchContext *processor.BatchContext) erro
 }
 
 // HandleError example implementation of error handling
-func (s ExampleDataProcessor) HandleError(batchContext *processor.BatchContext, err error) {
+func (p ExampleDataProcessor) HandleError(batchContext *processor.BatchContext, err error) {
 	fmt.Println(err)
 }
 
