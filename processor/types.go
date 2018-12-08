@@ -18,7 +18,7 @@ import (
 	"time"
 )
 
-// Processor
+// Processor interface that can be implemented to process buffered data (that is hold by the batch context)
 type Processor interface {
 	// Process handles/processes the data that is hold by the batch context
 	Process(*BatchContext) error
