@@ -21,10 +21,12 @@ import (
 	"time"
 )
 
+// ExampleDataProcessor example implementation of processor interface
 type ExampleDataProcessor struct {
 	Mutex *sync.Mutex
 }
 
+// Process example implementation of process function for Processor interface
 func (p ExampleDataProcessor) Process(batchContext *processor.BatchContext) error {
 	fmt.Println("Processing...")
 	t := batchContext.LastChanged
@@ -37,6 +39,7 @@ func (p ExampleDataProcessor) Process(batchContext *processor.BatchContext) erro
 	return nil
 }
 
+// HandleError example implementation of error handling
 func (s ExampleDataProcessor) HandleError(batchContext *processor.BatchContext, err error) {
 	fmt.Println(err)
 }
