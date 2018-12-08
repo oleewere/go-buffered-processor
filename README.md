@@ -18,8 +18,8 @@ limitations under the License.
 ## Buffered Data Processor in Go
 
 [![GoDoc Widget](https://godoc.org/github.com/oleewere/go-buffered-processor/processor?status.svg)](https://godoc.org/github.com/oleewere/go-buffered-processor/processor)
-[![Build Status](https://travis-ci.org/oleewere/go-buffered-processor.svg?branch=master)](https://travis-ci.org/oleewere/go-solr-client)
-[![Go Report Card](https://goreportcard.com/badge/github.com/oleewere/go-buffered-processor)](https://goreportcard.com/report/github.com/oleewere/go-solr-client)
+[![Build Status](https://travis-ci.org/oleewere/go-buffered-processor.svg?branch=master)](https://travis-ci.org/oleewere/go-buffered-processor)
+[![Go Report Card](https://goreportcard.com/badge/github.com/oleewere/go-buffered-processor)](https://goreportcard.com/report/github.com/oleewere/go-buffered-processor)
 ![license](http://img.shields.io/badge/license-Apache%20v2-blue.svg)
 
 ### IN PROGRESS
