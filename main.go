@@ -22,42 +22,36 @@ import (
 )
 
 type ExampleDataProcessor struct {
-	BatchContext *processor.BatchContext
-	Mutex sync.Mutex
+	Mutex *sync.Mutex
 }
 
-func (p ExampleDataProcessor) Process() error {
+func (p ExampleDataProcessor) Process(batchContext *processor.BatchContext) error {
 	fmt.Println("Processing...")
-	t := p.BatchContext.LastChanged
+	t := batchContext.LastChanged
 	fmt.Println(t.Format("2006-01-02-15:04:05"))
 	p.Mutex.Lock()
 	defer p.Mutex.Unlock()
-	for _, data := range *p.BatchContext.BufferData {
+	for _, data := range *batchContext.BufferData {
 		fmt.Println(data)
 	}
 	return nil
 }
 
-func (s ExampleDataProcessor) GetBatchContext() *processor.BatchContext {
-	return s.BatchContext
-}
-
-func (s ExampleDataProcessor) HandleError(err error) {
+func (s ExampleDataProcessor) HandleError(batchContext *processor.BatchContext, err error) {
 	fmt.Println(err)
 }
 
 func main() {
-	proc := ExampleDataProcessor{}
+	proc := ExampleDataProcessor{Mutex: &sync.Mutex{}}
 	b := processor.CreateDefaultBatchContext()
 	b.ProcessTimeInterval = 2 * time.Second
-	proc.BatchContext = b
 	data := "logging something"
-	go processor.StartTimeBasedProcessing(proc, 1)
-	go processor.StartTimeBasedProcessing(proc, 2)
-	go processor.StartTimeBasedProcessing(proc, 3)
-	processor.ProcessData(data, proc)
-	processor.ProcessData(data, proc)
-	processor.ProcessData(data, proc)
-	processor.ProcessData(data, proc)
-	processor.StartTimeBasedProcessing(proc, 10)
+	go processor.StartTimeBasedProcessing(b, proc, 1)
+	go processor.StartTimeBasedProcessing(b, proc, 2)
+	go processor.StartTimeBasedProcessing(b, proc, 3)
+	processor.ProcessData(data, b, proc)
+	processor.ProcessData(data, b, proc)
+	processor.ProcessData(data, b, proc)
+	processor.ProcessData(data, b, proc)
+	processor.StartTimeBasedProcessing(b, proc, 10)
 }

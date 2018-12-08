@@ -26,13 +26,12 @@ func CreateDefaultBatchContext() *BatchContext {
 		ProcessTimeInterval: 30 * time.Second, RetryTimeInterval: 5 * time.Second}
 }
 
-func ProcessData(data interface{}, processor Processor) error {
-	batchContext := processor.GetBatchContext()
+func ProcessData(data interface{}, batchContext *BatchContext, processor Processor) error {
 	dataArray := (*batchContext).BufferData
 	*dataArray = append(*dataArray, data)
 	if batchContext.MaxBufferSize <= len(*dataArray) {
 		err := retryFunction(batchContext.MaxRetries, batchContext.RetryTimeInterval, func() error {
-			return processor.Process()
+			return processor.Process(batchContext)
 		})
 		if err != nil {
 			return err
@@ -45,8 +44,7 @@ func ProcessData(data interface{}, processor Processor) error {
 	return nil
 }
 
-func StartTimeBasedProcessing(processor Processor, waitIntervalSec time.Duration) {
-	batchContext := processor.GetBatchContext()
+func StartTimeBasedProcessing(batchContext *BatchContext, processor Processor, waitIntervalSec time.Duration) {
 	if batchContext.TimeBasedProcessing {
 		for {
 			lastChangeTime := *batchContext.LastChanged
@@ -54,10 +52,10 @@ func StartTimeBasedProcessing(processor Processor, waitIntervalSec time.Duration
 			diff := time.Now().Sub(lastChangeTime)
 			if diff > processTimeInterval {
 				err := retryFunction(batchContext.MaxRetries, batchContext.RetryTimeInterval, func() error {
-					return processor.Process()
+					return processor.Process(batchContext)
 				})
 				if err != nil {
-					processor.HandleError(err)
+					processor.HandleError(batchContext, err)
 				} else {
 					actualTime := time.Now()
 					*batchContext.LastChanged = actualTime
