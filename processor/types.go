@@ -24,11 +24,11 @@ type Processor interface {
 }
 
 type BatchContext struct {
-	BufferData *[]interface{}
-	MaxBufferSize int
-	LastChanged *time.Time
+	BufferData          *[]interface{}
+	MaxBufferSize       int
+	LastChanged         *time.Time
 	TimeBasedProcessing bool
 	ProcessTimeInterval time.Duration
-	RetryTimeInterval time.Duration
-	MaxRetries int
+	RetryTimeInterval   time.Duration
+	MaxRetries          int
 }
