@@ -26,7 +26,7 @@ type Processor interface {
 	HandleError(*BatchContext, error)
 }
 
-// BatchContext hold data buffer related data
+// BatchContext holds data buffer related information/configuration
 type BatchContext struct {
 	// BufferData storing data that needs to be processed
 	BufferData *[]interface{}
