@@ -28,11 +28,10 @@ func ProcessData(data interface{}, batchContext *BatchContext, processor Process
 		})
 		if err != nil {
 			return err
-		} else {
-			actualTime := time.Now()
-			*batchContext.LastChanged = actualTime
-			*batchContext.BufferData = make([]interface{}, 0)
 		}
+		actualTime := time.Now()
+		*batchContext.LastChanged = actualTime
+		*batchContext.BufferData = make([]interface{}, 0)
 	}
 	return nil
 }
