@@ -27,7 +27,7 @@ limitations under the License.
 Small framework to send data to a buffer, and process that data if the buffer is full or after some time (check the buffer with a task in the background).
 
 ### Install & Build
-Requires go 1.10.x
+Requires go 1.10.x+
 - Install the source
 ```bash
 make install
